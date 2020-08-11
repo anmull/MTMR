@@ -31,7 +31,7 @@
 #------------------------------------------------------------------------------#
 
 # Force using the Apple ifconfig to avoid checking for GNU version.
-OUTPUT=$(/sbin/ifconfig utun5 2&>/dev/null | grep "inet" | grep " 10.")
+OUTPUT=$(/sbin/ifconfig utun5 2&>/dev/null | grep "inet" | grep " 10\.")
 
 # If it finds a 10. IP address, then return code will be 0, otherwise 1.
 RESULT=$?

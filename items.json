@@ -149,6 +149,7 @@
         "api_key": "[ENTER YOUR API KEY]",
         "bordered": false,
         "action": "appleScript",
+        // This could be done with $CITY, but quoting is an issue so it's just safer to hard-code it.
         "actionAppleScript": {
             "inline": "do shell script \"curl https://wttr.in/SFO.png --silent --output /tmp/SFO.png; open -W /tmp/SFO.png; rm /tmp/SFO.png\""
         }
