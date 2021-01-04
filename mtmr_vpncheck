@@ -31,11 +31,17 @@
 #------------------------------------------------------------------------------#
 
 # Force using the Apple ifconfig to avoid checking for GNU version.
-OUTPUT=$(/sbin/ifconfig utun5 2&>/dev/null | grep "inet" | grep " 10\.")
+OUTPUT=""
 
-# If it finds a 10. IP address, then return code will be 0, otherwise 1.
-RESULT=$?
-if [[ $RESULT -ne 0 ]]; then
+for i in $(ifconfig | awk '$1 ~ "^(utun|ipsec)[0-9]+:" {gsub(/:/,"",$1); print $1}')
+do
+    OUT=$(ifconfig $i | grep "inet ")
+    if [[ $OUT != "" ]]; then
+        OUTPUT=$OUT
+    fi
+done
+
+if [[ $OUTPUT == "" ]]; then
     echo -e "\033[31mVPN\033[m"
 else
     echo -e "\033[30;42mVPN\033[m"
